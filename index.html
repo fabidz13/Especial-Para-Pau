@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Especial Para Pau 💌</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    background: linear-gradient(160deg, #ff9a9e 0%, #fad0c4 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    }
+
+    body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('OjitosPau.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: brightness(0.5); 
+    z-index: -2;
+    }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+  }
+
+  p {
+    font-size: 1.3rem;
+    max-width: 500px;
+    margin: 0 20px 40px 20px;
+    animation: fadeIn 3s ease forwards 1s;
+    opacity: 0;
+  }
+
+  button {
+    background: #fff;
+    color: #ff6f91;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 2;
+  }
+
+  button:hover {
+    background: #ff6f91;
+    color: #fff;
+  }
+
+  .message {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    opacity: 0;
+    text-shadow: 0 0 10px #ff6f91;
+    transition: all 1s ease;
+    pointer-events: none;
+  }
+
+  .bubble {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    animation: floatBubble 8s linear infinite;
+  }
+
+  @keyframes floatBubble {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-50px) scale(1); opacity: 0; }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .audio-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #ff6f91;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .audio-btn:hover {
+    background: #ff4c6a;
+  }
+</style>
+</head>
+<body>
+
+<h1>Para Ti Pau 💖</h1>
+<p>Estos mensajitos son especiales, y llenos de cariño y buenos deseos. 🌷🌸</p>
+<button onclick="showMessage()">🥹</button>
+
+<div id="audioControl">
+  <button class="audio-btn" onclick="toggleAudio()">🎶</button>
+  <audio id="audio" loop>
+    <source src="Juanes Es Por Ti.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+</div>
+
+<script>
+  const mensajes = [
+  "Eres increíble 💕",
+  "Siempre iluminas mi día ☀️",
+  "Gracias por estar aquí 🌸",
+  "Tu sonrisa es mi felicidad 😊",
+  "Me haces sentir especial 💖",
+  "Cada momento contigo es único ✨",
+  "Tu alegría es contagiosa 😍",
+  "Nunca dejes de soñar 🌈",
+  "Me inspiras a ser mejor 🌟",
+  "Tu ternura me encanta 💗",
+  "Eres mi persona favorita 🥰",
+  "Tu voz es música para mi corazón 🎶",
+  "Gracias por tu cariño infinito 💞",
+  "Cada día contigo es mágico ✨",
+  "Tu risa ilumina mi mundo 🌸",
+  "Eres un regalo de la vida 🎁",
+  "Siempre estás en mis pensamientos 💭",
+  "Contigo todo es más divertido 🎉",
+  "Tus palabras me llenan de amor 💖",
+  "Eres mi calma y mi alegría 🌿",
+  "Me haces sonreír sin razón 😄",
+  "Gracias por tu apoyo siempre 💕",
+  "Eres un tesoro para mí 🏆",
+  "Tu mirada lo dice todo 👀",
+  "Me haces sentir completo ❤️",
+  "Siempre me sorprendes gratamente 🎈",
+  "Tu cariño es mi refugio 💗",
+  "Gracias por tu paciencia y comprensión 🙏",
+  "Cada día contigo es un regalo 🎁",
+  "Me haces querer ser mejor persona 🌟"
+];
+
+
+  function showMessage() {
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.textContent = mensajes[Math.floor(Math.random() * mensajes.length)];
+    msg.style.left = Math.random() * 80 + 'vw';
+    msg.style.top = '90vh';
+    document.body.appendChild(msg);
+
+    let pos = 90;
+    const interval = setInterval(() => {
+      if(pos < -10) {
+        msg.remove();
+        clearInterval(interval);
+      } else {
+        pos -= 1;
+        msg.style.top = pos + 'vh';
+        msg.style.opacity = Math.max(0, pos/100);
+      }
+    }, 50);
+  }
+
+  for(let i=0;i<30;i++){
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.style.left = Math.random()*100+'vw';
+    bubble.style.width = bubble.style.height = Math.random()*15+10+'px';
+    bubble.style.animationDuration = (Math.random()*5+5)+'s';
+    document.body.appendChild(bubble);
+  }
+
+  const audio = document.getElementById('audio');
+  let playing = false;
+  function toggleAudio(){
+    if(playing){
+      audio.pause();
+      playing = false;
+    } else {
+      audio.play();
+      playing = true;
+    }
+  }
+</script>
+
+</body>
+</html>
